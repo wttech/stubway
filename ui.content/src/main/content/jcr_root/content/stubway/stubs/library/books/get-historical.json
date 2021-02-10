@@ -1,0 +1,17 @@
+{
+    "nbrOfBooks" : "3",
+    "books" : [
+        {
+            "author" : "Author 1",
+            "title" : "Historical Title 1"
+        },
+        {
+            "author" : "Author 2",
+            "title" : "Historical Title 2"
+        },
+        {
+            "author" : "Author 3",
+            "title" : "Historical Title 3"
+        }
+    ]
+}
