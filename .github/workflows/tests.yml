@@ -1,4 +1,4 @@
-name: check
+name: tests
 
   on:
     pull_request:
@@ -18,5 +18,7 @@ name: check
           with:
             java-version: '8'
             distribution: 'adopt'
+        - name: Go to test directory
+          run: cd stubway.tests
         - name: Test with Maven
           run: mvn clean test
