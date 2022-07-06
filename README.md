@@ -80,7 +80,7 @@ Save the changes.
 
 **Step 6.** Test your new stub. 
 
-In REST client (i.e. Postman), run GET request: http://localhost:4503/content/books?type=fantasy
+In REST client (i.e. Postman), run GET request: http://localhost:4503/content/stubway/stubs/library/books?type=fantasy
 
 You should receive json response as it was configured in previous step: 
 
@@ -112,17 +112,33 @@ Go to the project root directory and run the following command with Maven 3:
 
 When AEM instance is up, build and deploy the whole package using the following command:
 
-    mvn clean install -PautoInstallPackage
+    mvn clean install -PautoInstallSinglePackage
 
 To deploy it to a publish instance, run:
 
-    mvn clean install -PautoInstallPackagePublish
+    mvn clean install -PautoInstallSinglePackagePublish
 
 Alternatively run:
 
-    mvn clean install -PautoInstallPackage -Daem.port=4503
+    mvn clean install -PautoInstallSinglePackage -Daem.port=4503
 
-To deploy only the bundle to an author, run:
+The maven execution should complete with success status, listing all the deployed bundles:
+
+```
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Stubway 1.0.0:
+[INFO]
+[INFO] Stubway ............................................ SUCCESS [  0.355 s]
+[INFO] Stubway - Core ..................................... SUCCESS [  3.224 s]
+[INFO] Stubway - UI apps .................................. SUCCESS [  0.716 s]
+[INFO] Stubway - UI content ............................... SUCCESS [  0.594 s]
+[INFO] Stubway - All ...................................... SUCCESS [  0.316 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
+
+To deploy only one of those bundles to the author instance, go the respective folder and run:
 
     mvn clean install -PautoInstallBundle
     
