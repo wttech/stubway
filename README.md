@@ -80,7 +80,7 @@ Save the changes.
 
 **Step 6.** Test your new stub. 
 
-In REST client (i.e. Postman), run GET request: http://localhost:4503/content/stubway/stubs/library/books?type=fantasy
+In REST client (i.e. Postman), run GET request: http://localhost:4503/content/books?type=fantasy
 
 You should receive json response as it was configured in previous step: 
 
@@ -96,6 +96,12 @@ You can create stubs returning any HTTP Status Code (https://restfulapi.net/http
 #### More examples? 
 
 Find more examples under `/content/stubway` (provided in stubway.ui.content-<version>.zip package).
+
+Please note that the stubs provided in that package will respond to requests with the following base URL:
+
+`http://localhost:4503/content/stubway/library/<endpoint>`
+
+Reflecting the full path of their respective nodes, as seen in CRXDE Lite
 
 #### Prerequisites
 
