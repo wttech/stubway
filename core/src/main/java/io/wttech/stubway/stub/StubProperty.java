@@ -1,6 +1,7 @@
 package io.wttech.stubway.stub;
 
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,11 +15,19 @@ public class StubProperty {
 	private String value;
 
 	public static StubProperty create(String name, String value) {
-		return new StubProperty(name, value);
+		return create(name, value, false);
+	}
+
+	public static StubProperty create(String name, String value, boolean literal) {
+		return new StubProperty(name, literal ? Pattern.quote(value) : value);
 	}
 
 	public static Set<StubProperty> create(String name, String[] value) {
-		return Stream.of(value).map(v -> create(name, v)).collect(Collectors.toSet());
+		return  create(name, value, false);
+	}
+
+	public static Set<StubProperty> create(String name, String[] value, boolean literal) {
+		return  Stream.of(value).map(v -> create(name, v, literal)).collect(Collectors.toSet());
 	}
 
 	private StubProperty(String name, String value) {
