@@ -20,6 +20,7 @@ public class MatchersRegistry {
 	public void activate() {
 		matchers.put(HttpMethod.GET, new QueryParametersMatcher());
 		matchers.put(HttpMethod.POST, new RequestBodyMatcher());
+		matchers.put(HttpMethod.PUT, new RequestBodyMatcher());
 	}
 
 }

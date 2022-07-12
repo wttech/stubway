@@ -41,6 +41,12 @@ public class StubTests {
 		return response;
 	}
 
+	private Response sendPutRequest(String path, String body) {
+		Response response = given().auth().basic(STUB_USER, STUB_PASSWORD).contentType(ContentType.JSON).body(body)
+				.put(URL + path);
+		return response;
+	}
+
 	private void compareJsonResponse(String fileName, Response response) throws IOException {
 		JsonParser parser = new JsonParser();
 		JsonElement actual = parser.parse(response.body().asPrettyString());
@@ -136,6 +142,22 @@ public class StubTests {
 		Response response = sendPostRequest("/content/stubway/stubs/library/books", body);
 		response.then().statusCode(401);
 		compareJsonResponse("secret_post.json", response);
+	}
+
+	@Test
+	public void putFantasyBookTest() throws IOException {
+		String body = "{" + "type: fantasy" + "}";
+		Response response = sendPutRequest("/content/stubway/stubs/library/books", body);
+		response.then().statusCode(200);
+		compareJsonResponse("fantasy_post.json", response);
+	}
+
+	@Test
+	public void putPoetryBookTest() throws IOException {
+		String body = "{" + "type: poetry" + "}";
+		Response response = sendPutRequest("/content/stubway/stubs/library/books", body);
+		response.then().statusCode(200);
+		compareJsonResponse("poetry_post.json", response);
 	}
 
 	@Test
