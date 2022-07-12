@@ -5,7 +5,6 @@ import io.wttech.stubway.request.MissingSupportedMethodException;
 
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,8 +45,7 @@ public class Stub {
 		this.stubProperties = valueMap.keySet().stream()
 				.filter(key -> !key.startsWith(StubConstants.JCR_NAMESPACE))
 				.filter(key -> !key.startsWith(StubConstants.NAMESPACE))
-				.map(key -> StubProperty.create(key, valueMap.get(key, String[].class)))
-				.flatMap(Collection::stream)
+				.map(key -> StubProperty.create(key, valueMap.get(key, String[].class))).flatMap(Collection::stream)
 				.collect(Collectors.toSet());
 	}
 
