@@ -43,11 +43,10 @@ public class Stub {
 	@PostConstruct
 	private void afterCreated() {
 		ValueMap valueMap = resource.getValueMap();
-		Set<String> literalProperties = valueMap.get(StubConstants.LITERAL, Set.class);
 		this.stubProperties = valueMap.keySet().stream()
 				.filter(key -> !key.startsWith(StubConstants.JCR_NAMESPACE))
 				.filter(key -> !key.startsWith(StubConstants.NAMESPACE))
-				.map(key -> StubProperty.create(key, valueMap.get(key, String[].class), literalProperties.contains(key)))
+				.map(key -> StubProperty.create(key, valueMap.get(key, String[].class)))
 				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
 	}
