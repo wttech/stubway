@@ -118,15 +118,15 @@ Go to the project root directory and run the following command with Maven 3:
 
 When AEM instance is up, build and deploy the whole package using the following command:
 
-    mvn clean install -PautoInstallSinglePackage
+    mvn clean install -PautoInstallPackage
 
 To deploy it to a publish instance, run:
 
-    mvn clean install -PautoInstallSinglePackagePublish
+    mvn clean install -PautoInstallPackagePublish
 
 Alternatively run:
 
-    mvn clean install -PautoInstallSinglePackage -Daem.port=4503
+    mvn clean install -PautoInstallPackage -Daem.port=4503
 
 The maven execution should complete with success status, listing all the deployed bundles:
 
