@@ -4,7 +4,7 @@ import static org.apache.sling.api.servlets.HttpConstants.*;
 
 public enum HttpMethod {
 
-	GET(METHOD_GET), POST(METHOD_POST), PUT(METHOD_PUT);
+	GET(METHOD_GET), POST(METHOD_POST), PUT(METHOD_PUT), DELETE(METHOD_DELETE);
 
 	private final String method;
 

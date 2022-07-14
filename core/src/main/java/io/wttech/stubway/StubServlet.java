@@ -20,6 +20,7 @@ import org.osgi.service.component.annotations.Reference;
 		Constants.SERVICE_DESCRIPTION + "=Stubway Servlet", "sling.servlet.methods=" + HttpConstants.METHOD_POST,
 		"sling.servlet.methods=" + HttpConstants.METHOD_GET,
 		"sling.servlet.methods=" + HttpConstants.METHOD_PUT,
+		"sling.servlet.methods=" + HttpConstants.METHOD_DELETE,
 		"sling.servlet.resourceTypes=" + StubConstants.STUB_RESOURCE_TYPE })
 
 public class StubServlet extends SlingAllMethodsServlet {
@@ -41,6 +42,11 @@ public class StubServlet extends SlingAllMethodsServlet {
 
 	@Override
 	public void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+		handleRequest(request, response);
+	}
+
+	@Override
+	public void doDelete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
 		handleRequest(request, response);
 	}
 
