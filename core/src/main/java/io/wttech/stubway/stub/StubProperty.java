@@ -16,10 +16,6 @@ public class StubProperty {
 
 	private String value;
 
-	public static StubProperty create(String name, String value) {
-		return create(name, value, false);
-	}
-
 	public static StubProperty create(String name, String value, boolean quote) {
 		return new StubProperty(name, quote ? Pattern.quote(value) : value);
 	}
