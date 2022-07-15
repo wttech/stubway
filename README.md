@@ -74,6 +74,13 @@ values: GET, POST (coming more in future).
 `type` type: String, value: fantasy <-- this property matches the query parameter `type`. `fantasy` value will match 
 `?type=fantasy` requests
 
+You may also use regular expression patterns as the value of the property. To indicate that the value of a specific
+property should be treated as a regex pattern and matched against the value of the named URL query parameter, you must
+add the ".regex" suffix to the property name:
+
+`type.regex` type: String, value: ^hist.*$ <-- this property matches the query parameter `type`. `^hist.*$` value
+will match both `?type=history` or `?type=historical fiction` requests.
+
 ![add_resource node](docs/demo/get-fantasy.png)
 
 Save the changes.
