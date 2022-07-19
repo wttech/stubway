@@ -12,7 +12,7 @@ class QueryParametersMatcher extends AbstractMatcher {
 	@Override
 	protected Set<StubProperty> collectProperties(RequestParameters request) {
 		return request.getQueryParameters().stream()
-				.map(p -> StubProperty.create(p.getName(), p.getValue().split(",")))
+				.map(p -> StubProperty.create(p.getName(), p.getValue().split(","), false))
 				.flatMap(Collection::stream).collect(Collectors.toSet());
 	}
 

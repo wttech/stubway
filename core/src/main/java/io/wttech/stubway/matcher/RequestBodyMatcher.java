@@ -27,7 +27,7 @@ class RequestBodyMatcher extends AbstractMatcher {
 				.map(JsonElement::getAsString)
 				.orElse(StringUtils.EMPTY);
 
-		return StubProperty.create(entry.getKey(), value);
+		return StubProperty.create(entry.getKey(), value, false);
 	}
 
 }
