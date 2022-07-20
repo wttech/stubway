@@ -74,6 +74,13 @@ values: GET, POST (coming more in future).
 `type` type: String, value: fantasy <-- this property matches the query parameter `type`. `fantasy` value will match 
 `?type=fantasy` requests
 
+You may also use regular expression patterns as the value of the property. To indicate that the value of a specific
+property should be treated as a regex pattern and matched against the value of the named URL query parameter, you must
+add the ".regex" suffix to the property name:
+
+`type.regex` type: String, value: ^hist.*$ <-- this property matches the query parameter `type`. `^hist.*$` value
+will match both `?type=history` or `?type=historical fiction` requests.
+
 ![add_resource node](docs/demo/get-fantasy.png)
 
 Save the changes.
@@ -96,6 +103,12 @@ You can create stubs returning any HTTP Status Code (https://restfulapi.net/http
 #### More examples? 
 
 Find more examples under `/content/stubway` (provided in stubway.ui.content-<version>.zip package).
+
+Please note that the stubs provided in that package will respond to requests with the following base URL:
+
+`http://localhost:4503/content/stubway/library/<endpoint>`
+
+Reflecting the full path of their respective nodes, as seen in CRXDE Lite
 
 #### Prerequisites
 
@@ -122,7 +135,23 @@ Alternatively run:
 
     mvn clean install -PautoInstallPackage -Daem.port=4503
 
-To deploy only the bundle to an author, run:
+The maven execution should complete with success status, listing all the deployed bundles:
+
+```
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Stubway 1.0.0:
+[INFO]
+[INFO] Stubway ............................................ SUCCESS [  0.355 s]
+[INFO] Stubway - Core ..................................... SUCCESS [  3.224 s]
+[INFO] Stubway - UI apps .................................. SUCCESS [  0.716 s]
+[INFO] Stubway - UI content ............................... SUCCESS [  0.594 s]
+[INFO] Stubway - All ...................................... SUCCESS [  0.316 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
+
+To deploy only one of those bundles to the author instance, go the respective folder and run:
 
     mvn clean install -PautoInstallBundle
     

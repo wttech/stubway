@@ -1,0 +1,49 @@
+{
+    "nbrOfBooks" : "11",
+    "books" : [
+        {
+            "author" : "Author 1",
+            "title" : "Fantasy Title 1"
+        },
+        {
+            "author" : "Author 2",
+            "title" : "Fantasy Title 2"
+        },
+        {
+            "author" : "Author 3",
+            "title" : "Fantasy Title 3"
+        },
+        {
+            "author" : "Author 4",
+            "title" : "Fantasy Title 4"
+        },
+        {
+            "author" : "Author 1",
+            "title" : "Historical Title 1"
+        },
+        {
+            "author" : "Author 2",
+            "title" : "Historical Title 2"
+        },
+        {
+            "author" : "Author 3",
+            "title" : "Historical Title 3"
+        },
+        {
+            "author" : "Author 1",
+            "title" : "Poetry Title 1"
+        },
+        {
+            "author" : "Author 2",
+            "title" : "Poetry Title 2"
+        },
+        {
+            "author" : "Author 3",
+            "title" : "Poetry Title 3"
+        },
+        {
+            "author" : "Author 4",
+            "title" : "Poetry Title 4"
+        }
+    ]
+}
