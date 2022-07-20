@@ -153,8 +153,7 @@ public class StubTests {
 
 	@Test
 	public void postAllBookTest() throws IOException {
-		String body = "{" + "type: .*" + "}";
-		Response response = sendPostRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendPostRequest("/content/stubway/stubs/library/books?type=.*", "");
 		response.then().statusCode(200);
 		compareJsonResponse("all_post.json", response);
 	}

@@ -1,18 +1,28 @@
 package io.wttech.stubway.matcher;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import io.wttech.stubway.collector.PropertyCollector;
 import io.wttech.stubway.request.RequestParameters;
 import io.wttech.stubway.stub.Stub;
 import io.wttech.stubway.stub.StubProperty;
 
-public abstract class AbstractMatcher implements Matcher {
+public class DefaultMatcher implements Matcher {
 
-	protected abstract Set<StubProperty> collectProperties(RequestParameters request);
+	List<PropertyCollector> collectors;
+
+	public DefaultMatcher(PropertyCollector... collectors) {
+		this.collectors = Stream.of(collectors).collect(Collectors.toList());
+	}
 
 	@Override
 	public boolean matches(Stub stub, RequestParameters requestParameters) {
-		Set<StubProperty> requestProperties = collectProperties(requestParameters);
+		Set<StubProperty> requestProperties = new HashSet<>();
+		collectors.forEach(collector -> requestProperties.addAll(collector.collectProperties(requestParameters)));
 
 		if (stub.getProperties().size() != requestProperties.size()) {
 			return false;
