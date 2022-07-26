@@ -5,6 +5,6 @@ import io.wttech.stubway.stub.StubProperty;
 
 import java.util.Set;
 
-public interface PropertyCollector {
+public interface PropertiesCollector {
     Set<StubProperty> collectProperties(RequestParameters request);
 }

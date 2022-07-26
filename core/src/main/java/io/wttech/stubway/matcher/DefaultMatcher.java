@@ -6,16 +6,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.wttech.stubway.collector.PropertyCollector;
+import io.wttech.stubway.collector.PropertiesCollector;
 import io.wttech.stubway.request.RequestParameters;
 import io.wttech.stubway.stub.Stub;
 import io.wttech.stubway.stub.StubProperty;
 
 public class DefaultMatcher implements Matcher {
 
-	List<PropertyCollector> collectors;
+	List<PropertiesCollector> collectors;
 
-	public DefaultMatcher(PropertyCollector... collectors) {
+	public DefaultMatcher(PropertiesCollector... collectors) {
 		this.collectors = Stream.of(collectors).collect(Collectors.toList());
 	}
 

@@ -13,7 +13,19 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class RequestBodyCollector implements PropertyCollector {
+public class RequestBodyCollector implements PropertiesCollector {
+
+	private static RequestBodyCollector instance;
+
+	private RequestBodyCollector() {}
+
+	public static PropertiesCollector createCollector() {
+		if (instance == null) {
+			instance = new RequestBodyCollector();
+		}
+
+		return instance;
+	}
 
 	@Override
 	public Set<StubProperty> collectProperties(RequestParameters request) {

@@ -20,8 +20,9 @@ public class MatchersRegistry {
 
 	@Activate
 	public void activate() {
-		matchers.put(HttpMethod.GET, new DefaultMatcher(new QueryParametersCollector()));
-		matchers.put(HttpMethod.POST, new DefaultMatcher(new RequestBodyCollector(), new QueryParametersCollector()));
+		matchers.put(HttpMethod.GET, new DefaultMatcher(QueryParametersCollector.createCollector()));
+		matchers.put(HttpMethod.POST, new DefaultMatcher(RequestBodyCollector.createCollector(),
+														 QueryParametersCollector.createCollector()));
 	}
 
 }
