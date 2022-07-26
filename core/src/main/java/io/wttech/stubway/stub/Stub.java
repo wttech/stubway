@@ -49,7 +49,6 @@ public class Stub {
 		this.stubProperties = valueMap.keySet().stream()
 				.filter(key -> !key.startsWith(StubConstants.JCR_NAMESPACE))
 				.filter(key -> !key.startsWith(StubConstants.NAMESPACE))
-				.filter(key -> !key.startsWith(StubConstants.RESPONSE_PREFIX))
 				.map(key -> StubProperty.create(key, valueMap.get(key, String[].class))).flatMap(Collection::stream)
 				.collect(Collectors.toSet());
 

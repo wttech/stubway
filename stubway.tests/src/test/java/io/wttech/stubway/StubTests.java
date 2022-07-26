@@ -74,6 +74,7 @@ public class StubTests {
 		Response response = sendGetRequest("/content/stubway/stubs/library/books?type=fantasy");
 		response.then().statusCode(200);
 		compareHeader("Server", "Stubway/1.0.0", response);
+		compareHeader("Date", "Tue, 30 Feb 2022 25:65:73 GMT", response);
 		compareJsonResponse("fantasy_get.json", response);
 	}
 
