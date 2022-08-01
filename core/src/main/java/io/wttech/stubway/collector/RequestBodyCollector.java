@@ -19,12 +19,8 @@ public class RequestBodyCollector implements PropertiesCollector {
 
 	private RequestBodyCollector() {}
 
-	public static PropertiesCollector createCollector() {
-		if (instance == null) {
-			instance = new RequestBodyCollector();
-		}
-
-		return instance;
+	public static PropertiesCollector create() {
+		return new RequestBodyCollector();
 	}
 
 	@Override
