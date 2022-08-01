@@ -81,6 +81,12 @@ add the ".regex" suffix to the property name:
 `type.regex` type: String, value: ^hist.*$ <-- this property matches the query parameter `type`. `^hist.*$` value
 will match both `?type=history` or `?type=historical fiction` requests.
 
+You also have the option to specify values to be included or replaced in the response headers. Response headers are
+identified with the "stub.res." prefix and may refer to standard HTTP headers or custom proprietary ones:
+
+`stub.res.Server` type: String, value: Stubway/1.0.0 <-- this property will include the `Server` HTTP header in the
+response. The value of the header will be `Stubway/1.0.0`.
+
 ![add_resource node](docs/demo/get-fantasy.png)
 
 Save the changes.
