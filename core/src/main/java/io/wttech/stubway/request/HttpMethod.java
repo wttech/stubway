@@ -1,11 +1,10 @@
 package io.wttech.stubway.request;
 
-import static org.apache.sling.api.servlets.HttpConstants.METHOD_GET;
-import static org.apache.sling.api.servlets.HttpConstants.METHOD_POST;
+import static org.apache.sling.api.servlets.HttpConstants.*;
 
 public enum HttpMethod {
 
-	GET(METHOD_GET), POST(METHOD_POST);
+	GET(METHOD_GET), POST(METHOD_POST), PUT(METHOD_PUT), DELETE(METHOD_DELETE);
 
 	private final String method;
 

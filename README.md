@@ -69,7 +69,7 @@ Add the following properties:
 `jcr:mixinTypes` type: Name, value: cq:ComponentMixin
 
 `stub.method` type: String, value: GET <-- this property indicates the method of REST request. It can have the following
-values: GET, POST (coming more in future).
+values: GET, POST, PUT, DELETE (coming more in future).
 
 `type` type: String, value: fantasy <-- this property matches the query parameter `type`. `fantasy` value will match 
 `?type=fantasy` requests

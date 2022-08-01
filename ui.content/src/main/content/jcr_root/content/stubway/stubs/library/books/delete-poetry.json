@@ -1,0 +1,17 @@
+{
+    "nbrOfBooks" : "3",
+    "books" : [
+        {
+            "author" : "Author 1",
+            "title" : "Poetry Title 1"
+        },
+        {
+            "author" : "Author 2",
+            "title" : "Poetry Title 2"
+        },
+        {
+            "author" : "Author 3",
+            "title" : "Poetry Title 3"
+        }
+    ]
+}
