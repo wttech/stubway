@@ -129,8 +129,7 @@ public class StubTests {
 
 	@Test
 	public void postFantasyBookTest() throws IOException {
-		String body = "{" + "type: fantasy" + "}";
-		Response response = sendPostRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendPostRequest("/content/stubway/stubs/library/books?type=fantasy", "");
 		response.then().statusCode(200);
 		compareJsonResponse("fantasy_post.json", response);
 	}
@@ -144,17 +143,23 @@ public class StubTests {
 	}
 
 	@Test
+	public void postFantasyPoetryBookTest() throws IOException {
+		String body = "{" + "type: poetry" + "}";
+		Response response = sendPostRequest("/content/stubway/stubs/library/books?type=fantasy", body);
+		response.then().statusCode(200);
+		compareJsonResponse("poetry_fantasy_get.json", response);
+	}
+
+	@Test
 	public void postSecretBookTest() throws IOException {
-		String body = "{" + "type: secret" + "}";
-		Response response = sendPostRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendPostRequest("/content/stubway/stubs/library/books?type=secret", "");
 		response.then().statusCode(401);
 		compareJsonResponse("secret_post.json", response);
 	}
 
 	@Test
 	public void postAllBookTest() throws IOException {
-		String body = "{" + "type: .*" + "}";
-		Response response = sendPostRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendPostRequest("/content/stubway/stubs/library/books?type=.*", "");
 		response.then().statusCode(200);
 		compareJsonResponse("all_post.json", response);
 	}
