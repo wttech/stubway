@@ -2,6 +2,7 @@ package io.wttech.stubway.response;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Map;
 import java.util.Optional;
 
 import io.wttech.stubway.stub.Stub;
@@ -16,6 +17,7 @@ public class StubResponse {
 
 	private InputStream inputStream;
 	private int statusCode;
+	private Map<String, String> responseHeaders;
 
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -39,6 +41,7 @@ public class StubResponse {
 		this.inputStream = Optional.ofNullable(foundStub.getInputStream())
 				.orElse(IOUtils.toInputStream("", Charset.defaultCharset()));
 		this.statusCode = foundStub.getStatusCode();
+		this.responseHeaders = foundStub.getResponseHeaders();
 	}
 
 	private StubResponse() {
@@ -62,5 +65,7 @@ public class StubResponse {
 	public int getStatusCode() {
 		return statusCode;
 	}
+
+	public Map<String, String> getResponseHeaders() { return responseHeaders; }
 
 }

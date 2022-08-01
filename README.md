@@ -87,6 +87,12 @@ adding the "body." prefix to the property name:
 `body.language` type: String, value: English <-- this property matches a JSON key with name `language` and value
 `English` in the body of the request.
 
+You also have the option to specify values to be included or replaced in the response headers. Response headers are
+identified with the "stub.res." prefix and may refer to standard HTTP headers or custom proprietary ones:
+
+`stub.res.Server` type: String, value: Stubway/1.0.0 <-- this property will include the `Server` HTTP header in the
+response. The value of the header will be `Stubway/1.0.0`.
+
 ![add_resource node](docs/demo/get-fantasy.png)
 
 Save the changes.

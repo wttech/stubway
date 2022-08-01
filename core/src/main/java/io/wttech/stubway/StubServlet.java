@@ -1,6 +1,9 @@
 package io.wttech.stubway;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.Servlet;
 
@@ -44,6 +47,10 @@ public class StubServlet extends SlingAllMethodsServlet {
 
 		StubResponse stubResponse = stubFinderService.getStubResponse(request);
 		response.setStatus(stubResponse.getStatusCode());
+
+		Map<String, String> headers = Optional.ofNullable(stubResponse.getResponseHeaders()).orElse(Collections.emptyMap());
+		headers.keySet().forEach(k -> response.setHeader(k, headers.get(k)));
+
 		IOUtils.copy(stubResponse.getInputStream(), response.getOutputStream());
 	}
 

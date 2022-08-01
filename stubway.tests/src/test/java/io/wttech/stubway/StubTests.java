@@ -49,6 +49,10 @@ public class StubTests {
 		Assert.assertEquals(expected, actual);
 	}
 
+	private void compareHeader(String key, String value, Response response) {
+		Assert.assertEquals(value, response.getHeader(key));
+	}
+
 	private String getJsonFile(String fileName) throws IOException {
 		String json = IOUtils.toString(this.getClass().getResourceAsStream(fileName), "UTF-8");
 		return json;
@@ -69,6 +73,8 @@ public class StubTests {
 	public void getFantasyBooksTest() throws IOException {
 		Response response = sendGetRequest("/content/stubway/stubs/library/books?type=fantasy");
 		response.then().statusCode(200);
+		compareHeader("Server", "Stubway/1.0.0", response);
+		compareHeader("Date", "Tue, 30 Feb 2022 25:65:73 GMT", response);
 		compareJsonResponse("fantasy_get.json", response);
 	}
 
