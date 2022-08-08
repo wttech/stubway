@@ -1,5 +1,7 @@
 package io.wttech.stubway.matcher;
 
+import io.wttech.stubway.collector.QueryParametersCollector;
+import io.wttech.stubway.collector.RequestBodyCollector;
 import io.wttech.stubway.request.HttpMethod;
 import java.util.EnumMap;
 import java.util.Map;
@@ -18,10 +20,13 @@ public class MatchersRegistry {
 
 	@Activate
 	public void activate() {
-		matchers.put(HttpMethod.GET, new QueryParametersMatcher());
-		matchers.put(HttpMethod.POST, new RequestBodyMatcher());
-		matchers.put(HttpMethod.PUT, new RequestBodyMatcher());
-		matchers.put(HttpMethod.DELETE, new RequestBodyMatcher());
+		matchers.put(HttpMethod.GET, new DefaultMatcher(QueryParametersCollector.create()));
+		matchers.put(HttpMethod.POST, new DefaultMatcher(RequestBodyCollector.create(),
+														 QueryParametersCollector.create()));
+		matchers.put(HttpMethod.PUT, new DefaultMatcher(RequestBodyCollector.create(),
+														 QueryParametersCollector.create()));
+		matchers.put(HttpMethod.DELETE, new DefaultMatcher(RequestBodyCollector.create(),
+														 QueryParametersCollector.create()));
 	}
 
 }
