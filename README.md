@@ -81,6 +81,12 @@ add the ".regex" suffix to the property name:
 `type.regex` type: String, value: ^hist.*$ <-- this property matches the query parameter `type`. `^hist.*$` value
 will match both `?type=history` or `?type=historical fiction` requests.
 
+When the body of a request is in JSON format, you may create properties to match values inside the JSON data, by simply
+adding the "body." prefix to the property name:
+
+`body.language` type: String, value: English <-- this property matches a JSON key with name `language` and value
+`English` in the body of the request.
+
 You also have the option to specify values to be included or replaced in the response headers. Response headers are
 identified with the "stub.res." prefix and may refer to standard HTTP headers or custom proprietary ones:
 
