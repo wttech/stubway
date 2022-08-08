@@ -3,7 +3,7 @@
     jcr:mixinTypes="[cq:ComponentMixin]"
     jcr:primaryType="nt:file"
     stub.method="PUT"
-    type="fantasy">
+    body.type="fantasy">
     <jcr:content
         jcr:lastModifiedBy="admin"
         jcr:primaryType="nt:resource"/>

@@ -186,16 +186,14 @@ public class StubTests {
 
 	@Test
 	public void putPoetryBookTest() throws IOException {
-		String body = "{" + "type: poetry" + "}";
-		Response response = sendPutRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendPutRequest("/content/stubway/stubs/library/books?type=poetry", "");
 		response.then().statusCode(200);
 		compareJsonResponse("poetry_post.json", response);
 	}
 
 	@Test
 	public void deletePoetryBookTest() throws IOException {
-		String body = "{" + "type: poetry" + "}";
-		Response response = sendDeleteRequest("/content/stubway/stubs/library/books", body);
+		Response response = sendDeleteRequest("/content/stubway/stubs/library/books?type=poetry", "");
 		response.then().statusCode(200);
 		compareJsonResponse("poetry_delete.json", response);
 	}
