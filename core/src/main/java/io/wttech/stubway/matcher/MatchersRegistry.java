@@ -23,6 +23,10 @@ public class MatchersRegistry {
 		matchers.put(HttpMethod.GET, new DefaultMatcher(QueryParametersCollector.create()));
 		matchers.put(HttpMethod.POST, new DefaultMatcher(RequestBodyCollector.create(),
 														 QueryParametersCollector.create()));
+		matchers.put(HttpMethod.PUT, new DefaultMatcher(RequestBodyCollector.create(),
+														 QueryParametersCollector.create()));
+		matchers.put(HttpMethod.DELETE, new DefaultMatcher(RequestBodyCollector.create(),
+														 QueryParametersCollector.create()));
 	}
 
 }
