@@ -69,7 +69,7 @@ Add the following properties:
 `jcr:mixinTypes` type: Name, value: cq:ComponentMixin
 
 `stub.method` type: String, value: GET <-- this property indicates the method of REST request. It can have the following
-values: GET, POST (coming more in future).
+values: GET, POST, PUT, DELETE (coming more in future).
 
 `type` type: String, value: fantasy <-- this property matches the query parameter `type`. `fantasy` value will match 
 `?type=fantasy` requests
@@ -80,6 +80,18 @@ add the ".regex" suffix to the property name:
 
 `type.regex` type: String, value: ^hist.*$ <-- this property matches the query parameter `type`. `^hist.*$` value
 will match both `?type=history` or `?type=historical fiction` requests.
+
+When the body of a request is in JSON format, you may create properties to match values inside the JSON data, by simply
+adding the "body." prefix to the property name:
+
+`body.language` type: String, value: English <-- this property matches a JSON key with name `language` and value
+`English` in the body of the request.
+
+You also have the option to specify values to be included or replaced in the response headers. Response headers are
+identified with the "stub.res." prefix and may refer to standard HTTP headers or custom proprietary ones:
+
+`stub.res.Server` type: String, value: Stubway/1.0.0 <-- this property will include the `Server` HTTP header in the
+response. The value of the header will be `Stubway/1.0.0`.
 
 ![add_resource node](docs/demo/get-fantasy.png)
 
