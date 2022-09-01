@@ -1,17 +1,28 @@
 package io.wttech.stubway.response;
 
-import io.wttech.stubway.stub.Stub;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.Test;
+
+import io.wttech.stubway.stub.Stub;
 
 public class StubResponseTest {
 
     @Test
-    public void emptyShouldReturnStubResponseWithEmptyParams() {
+    public void emptyShouldReturnStubResponseWithEmptyParams() throws IOException {
         StubResponse empty = StubResponse.empty();
-        Assertions.assertEquals((Integer) null, empty.getStatusCode());
-        Assertions.assertNull(empty.getInputStream());
+        Assertions.assertEquals(404, empty.getStatusCode());
+        String expected = "{\n"
+                + "  \"message\": \"Stub not found\",\n"
+                + "  \"statusCode\": 404\n"
+                + "}";
+        Assertions.assertEquals(expected, IOUtils.toString(empty.getInputStream(), Charset.defaultCharset()));
     }
 
     @Test
@@ -27,10 +38,13 @@ public class StubResponseTest {
     }
 
     @Test
-    public void foundStubShouldReturnStubResponseWithSetValues() {
-        Stub stub = new Stub();
+    public void foundStubShouldReturnStubResponseWithSetValues() throws IOException {
+        Stub stub = mock(Stub.class);
+        when(stub.getStatusCode()).thenReturn(200);
+        when(stub.getInputStream()).thenReturn(IOUtils.toInputStream("fake input stream message", Charset.defaultCharset()));
         StubResponse foundStub = StubResponse.foundStub(stub);
         Assertions.assertEquals(200, foundStub.getStatusCode());
-        Assertions.assertNull(foundStub.getInputStream());
+        Assertions.assertEquals("fake input stream message",
+                IOUtils.toString(foundStub.getInputStream(), Charset.defaultCharset()));
     }
 }
