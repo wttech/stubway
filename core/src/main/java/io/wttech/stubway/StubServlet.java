@@ -1,6 +1,9 @@
 package io.wttech.stubway;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.Servlet;
 
@@ -19,6 +22,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(service = { Servlet.class, StubServlet.class }, property = {
 		Constants.SERVICE_DESCRIPTION + "=Stubway Servlet", "sling.servlet.methods=" + HttpConstants.METHOD_POST,
 		"sling.servlet.methods=" + HttpConstants.METHOD_GET,
+		"sling.servlet.methods=" + HttpConstants.METHOD_PUT,
+		"sling.servlet.methods=" + HttpConstants.METHOD_DELETE,
 		"sling.servlet.resourceTypes=" + StubConstants.STUB_RESOURCE_TYPE })
 
 public class StubServlet extends SlingAllMethodsServlet {
@@ -38,12 +43,26 @@ public class StubServlet extends SlingAllMethodsServlet {
 		handleRequest(request, response);
 	}
 
+	@Override
+	public void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+		handleRequest(request, response);
+	}
+
+	@Override
+	public void doDelete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+		handleRequest(request, response);
+	}
+
 	private void handleRequest(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
 		response.setContentType(ContentType.APPLICATION_JSON.toString());
 		response.setCharacterEncoding(CharEncoding.UTF_8);
 
 		StubResponse stubResponse = stubFinderService.getStubResponse(request);
 		response.setStatus(stubResponse.getStatusCode());
+
+		Map<String, String> headers = Optional.ofNullable(stubResponse.getResponseHeaders()).orElse(Collections.emptyMap());
+		headers.keySet().forEach(k -> response.setHeader(k, headers.get(k)));
+
 		IOUtils.copy(stubResponse.getInputStream(), response.getOutputStream());
 	}
 

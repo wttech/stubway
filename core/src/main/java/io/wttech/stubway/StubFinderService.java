@@ -37,38 +37,34 @@ public class StubFinderService {
 	}
 
 	private StubResponse createStubResponse(Resource stubsResource, RequestParameters params) {
-		for (Stub stub : getAllStubs(stubsResource)) {
-			try {
-				if (isStubMatching(stub, params) && isMethodMatching(stub, params)) {
-					return StubResponse.foundStub(stub);
-				}
-			} catch (MissingSupportedMethodException exception) {
-				return StubResponse.error(exception);
-			}
-		}
-		return StubResponse.empty();
+		return getStub(stubsResource, params).map(StubResponse::foundStub).orElse(StubResponse.empty());
 	}
 
-	private List<Stub> getAllStubs(Resource stubsResource) {
+	private Optional<Stub> getStub(Resource stubsResource, RequestParameters params) {
 		return Optional.ofNullable(stubsResource)
 				.map(Resource::getChildren)
-				.map(this::toStubs)
-				.orElse(Collections.emptyList());
+				.map(resources -> toStub(resources, params));
 	}
 
-	private List<Stub> toStubs(Iterable<Resource> resources) {
+	private Stub toStub(Iterable<Resource> resources, RequestParameters params) {
 		return StreamSupport.stream(resources.spliterator(), false)
 				.map(resource -> resource.adaptTo(Stub.class))
 				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
+				.filter(stub -> isMethodMatching(stub, params))
+				.filter(stub -> isStubMatching(stub, params))
+				.findFirst()
+				.orElse(null);
 	}
 
-	private boolean isMethodMatching(Stub stub, RequestParameters params) throws MissingSupportedMethodException {
-		return ObjectUtils.equals(params.getMethod(), stub.getMethod());
+	private boolean isMethodMatching(Stub stub, RequestParameters params) {
+		try {
+			return ObjectUtils.equals(params.getMethod(), stub.getMethod());
+		} catch (MissingSupportedMethodException ex) {
+			return false;
+		}
 	}
 
 	private boolean isStubMatching(Stub stub, RequestParameters params) {
 		return matchersRegistry.getMatcher(params.getMethod()).matches(stub, params);
 	}
-
 }
