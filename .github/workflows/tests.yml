@@ -18,9 +18,5 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: Go to test directory
-        run: cd stubway.tests
-      - name: Check directory
-        run: pwd
       - name: Test with Maven
         run: mvn clean test
