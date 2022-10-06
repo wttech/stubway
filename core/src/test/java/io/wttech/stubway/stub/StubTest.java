@@ -22,7 +22,7 @@ class StubTest {
     private final AemContext ctx = new AemContext(ResourceResolverType.JCR_OAK);
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ctx.addModelsForClasses(Stub.class);
         ctx.load().json("/io/wttech/stubway/stub/Stub.json", destPath);
     }
