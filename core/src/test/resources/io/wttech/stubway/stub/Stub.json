@@ -1,0 +1,56 @@
+{
+  "stub_correct": {
+    "jcr:createdBy": "admin",
+    "jcr:mixinTypes": [
+      "cq:ComponentMixin"
+    ],
+    "jcr:primaryType": "nt:file",
+    "stub.method": "GET",
+    "stub.statusCode": "200",
+    "type": "poetry",
+    "ebok": "true",
+    "stub.res.Server": "Stubway/1.0.0",
+    "stub.res.Date": "Sat, 18 May 2008 09:20:00 GMT",
+    "jcr:content": {
+      "jcr:data": "{\"nbrOfBooks\" : \"1\", \"author\" : \"Author 1\"}",
+      "jcr:mimeType": "application/json",
+      "jcr:primaryType": "nt:resource"
+    }
+  },
+  "stub_missing_method": {
+    "jcr:createdBy": "admin",
+    "jcr:mixinTypes": [
+      "cq:ComponentMixin"
+    ],
+    "jcr:primaryType": "nt:file",
+    "stub.statusCode": "200",
+    "type": "poetry",
+    "ebok": "true",
+    "stub.res.Server": "Stubway/1.0.0",
+    "stub.res.Date": "Sat, 18 May 2008 09:20:00 GMT",
+    "jcr:content": {
+      "jcr:data": "{\"nbrOfBooks\" : \"1\", \"author\" : \"Author 1\"}",
+      "jcr:mimeType": "application/json",
+      "jcr:primaryType": "nt:resource"
+    }
+  },
+
+  "stub_not_supported_method": {
+    "stub.method": "GET1",
+    "jcr:createdBy": "admin",
+    "jcr:mixinTypes": [
+      "cq:ComponentMixin"
+    ],
+    "jcr:primaryType": "nt:file",
+    "stub.statusCode": "200",
+    "type": "poetry",
+    "ebok": "true",
+    "stub.res.Server": "Stubway/1.0.0",
+    "stub.res.Date": "Sat, 18 May 2008 09:20:00 GMT",
+    "jcr:content": {
+      "jcr:data": "{\"nbrOfBooks\" : \"1\", \"author\" : \"Author 1\"}",
+      "jcr:mimeType": "application/json",
+      "jcr:primaryType": "nt:resource"
+    }
+  }
+}

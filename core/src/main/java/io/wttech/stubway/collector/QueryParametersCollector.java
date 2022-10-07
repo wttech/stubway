@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 public class QueryParametersCollector implements PropertiesCollector {
 
-	private static QueryParametersCollector instance;
-
 	private QueryParametersCollector() {}
 
 	public static PropertiesCollector create() {
