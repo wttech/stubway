@@ -1,7 +1,6 @@
 package io.wttech.stubway.filter;
 
 import io.wttech.stubway.StubServlet;
-import io.wttech.stubway.stub.Stub;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
