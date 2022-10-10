@@ -54,7 +54,8 @@ public class Stub {
 
 		this.responseHeaders = valueMap.keySet().stream()
 				.filter(key -> key.startsWith(StubConstants.RESPONSE_PREFIX))
-				.collect(Collectors.toMap(key -> StringUtils.removeStart(key, StubConstants.RESPONSE_PREFIX), key -> valueMap.get(key, String.class)));
+				.collect(Collectors.toMap(key -> StringUtils.removeStart(key, StubConstants.RESPONSE_PREFIX),
+						key -> valueMap.get(key, String.class)));
 	}
 
 	public InputStream getInputStream() {

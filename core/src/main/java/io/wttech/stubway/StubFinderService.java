@@ -12,11 +12,8 @@ import org.apache.sling.api.resource.Resource;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Component(service = StubFinderService.class)
@@ -27,44 +24,44 @@ public class StubFinderService {
 
 	public StubResponse getStubResponse(SlingHttpServletRequest request) {
 		String resourcePath = request.getRequestPathInfo().getResourcePath();
-		Resource stubsResource = request.getResourceResolver().getResource(resourcePath);
+		Resource stubEndpoint = request.getResourceResolver().getResource(resourcePath);
 		try {
-			RequestParameters params = new RequestParameters(request);
-			return createStubResponse(stubsResource, params);
+			RequestParameters stubParams = new RequestParameters(request);
+			return createStubResponse(stubEndpoint, stubParams);
 		} catch (FetchingParametersException fpe) {
 			return StubResponse.internalError(fpe);
 		}
 	}
 
-	private StubResponse createStubResponse(Resource stubsResource, RequestParameters params) {
-		return getStub(stubsResource, params).map(StubResponse::foundStub).orElse(StubResponse.empty());
+	private StubResponse createStubResponse(Resource stubEndpoint, RequestParameters stubParams) {
+		return getStub(stubEndpoint, stubParams).map(StubResponse::foundStub).orElse(StubResponse.empty());
 	}
 
-	private Optional<Stub> getStub(Resource stubsResource, RequestParameters params) {
-		return Optional.ofNullable(stubsResource)
+	private Optional<Stub> getStub(Resource stubEndpoint, RequestParameters stubParams) {
+		return Optional.ofNullable(stubEndpoint)
 				.map(Resource::getChildren)
-				.map(resources -> toStub(resources, params));
+				.map(stubsResources -> toStub(stubsResources, stubParams));
 	}
 
-	private Stub toStub(Iterable<Resource> resources, RequestParameters params) {
-		return StreamSupport.stream(resources.spliterator(), false)
+	private Stub toStub(Iterable<Resource> stubResources, RequestParameters stubParams) {
+		return StreamSupport.stream(stubResources.spliterator(), false)
 				.map(resource -> resource.adaptTo(Stub.class))
 				.filter(Objects::nonNull)
-				.filter(stub -> isMethodMatching(stub, params))
-				.filter(stub -> isStubMatching(stub, params))
+				.filter(stub -> isMethodMatching(stub, stubParams))
+				.filter(stub -> isStubMatching(stub, stubParams))
 				.findFirst()
 				.orElse(null);
 	}
 
-	private boolean isMethodMatching(Stub stub, RequestParameters params) {
+	private boolean isMethodMatching(Stub stub, RequestParameters stubParams) {
 		try {
-			return ObjectUtils.equals(params.getMethod(), stub.getMethod());
+			return ObjectUtils.equals(stubParams.getMethod(), stub.getMethod());
 		} catch (MissingSupportedMethodException ex) {
 			return false;
 		}
 	}
 
-	private boolean isStubMatching(Stub stub, RequestParameters params) {
-		return matchersRegistry.getMatcher(params.getMethod()).matches(stub, params);
+	private boolean isStubMatching(Stub stub, RequestParameters stubParams) {
+		return matchersRegistry.getMatcher(stubParams.getMethod()).matches(stub, stubParams);
 	}
 }

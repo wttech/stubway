@@ -1,24 +1,21 @@
 package io.wttech.stubway.response;
 
-class ResponseBody {
+class ErrorResponseBody {
 
 	private String message;
 	private int statusCode;
 
-	public ResponseBody() {
-	}
-
-	public ResponseBody(String message, int statusCode) {
+	public ErrorResponseBody(int statusCode, String message) {
 		this.message = message;
 		this.statusCode = statusCode;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
 	public int getStatusCode() {
 		return statusCode;
+	}
+
+	public String getMessage() {
+		return message;
 	}
 
 }

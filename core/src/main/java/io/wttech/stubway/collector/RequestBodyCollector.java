@@ -15,9 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class RequestBodyCollector implements PropertiesCollector {
 
-	private static RequestBodyCollector instance;
-
-	private RequestBodyCollector() {}
+	private RequestBodyCollector() {
+	}
 
 	public static PropertiesCollector create() {
 		return new RequestBodyCollector();

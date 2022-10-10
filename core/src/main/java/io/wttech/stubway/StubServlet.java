@@ -58,12 +58,11 @@ public class StubServlet extends SlingAllMethodsServlet {
 		response.setCharacterEncoding(CharEncoding.UTF_8);
 
 		StubResponse stubResponse = stubFinderService.getStubResponse(request);
+
 		response.setStatus(stubResponse.getStatusCode());
-
-		Map<String, String> headers = Optional.ofNullable(stubResponse.getResponseHeaders()).orElse(Collections.emptyMap());
-		headers.keySet().forEach(k -> response.setHeader(k, headers.get(k)));
-
-		IOUtils.copy(stubResponse.getInputStream(), response.getOutputStream());
+		stubResponse.getHeaders()
+				.ifPresent(headers -> headers.keySet().forEach(k -> response.setHeader(k, headers.get(k))));
+		IOUtils.copy(stubResponse.getBody(), response.getOutputStream());
 	}
 
 }
