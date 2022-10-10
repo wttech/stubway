@@ -1,71 +1,66 @@
 package io.wttech.stubway.response;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.wttech.stubway.stub.Stub;
+import org.apache.commons.io.IOUtils;
+
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Optional;
 
-import io.wttech.stubway.stub.Stub;
-import org.apache.commons.io.IOUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import static org.apache.commons.httpclient.HttpStatus.*;
 
 public class StubResponse {
 
-	private InputStream inputStream;
+	private InputStream body;
 	private int statusCode;
-	private Map<String, String> responseHeaders;
+	private Map<String, String> headers;
 
-	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private static Gson gson = new GsonBuilder()
+			.setPrettyPrinting()
+			.create();
 
 	public static StubResponse foundStub(Stub foundStub) {
 		return new StubResponse(foundStub);
 	}
 
 	public static StubResponse empty() {
-		return new StubResponse();
+		return new StubResponse(SC_NOT_FOUND, "Stub not found");
 	}
 
 	public static StubResponse error(Exception e) {
-		return new StubResponse(e, SC_BAD_REQUEST);
+		return new StubResponse(SC_BAD_REQUEST, e.getMessage());
 	}
 
 	public static StubResponse internalError(Exception e) {
-		return new StubResponse(e, SC_INTERNAL_SERVER_ERROR);
+		return new StubResponse(SC_INTERNAL_SERVER_ERROR, e.getMessage());
 	}
 
 	private StubResponse(Stub foundStub) {
-		this.inputStream = Optional.ofNullable(foundStub.getInputStream())
-				.orElse(IOUtils.toInputStream("", Charset.defaultCharset()));
 		this.statusCode = foundStub.getStatusCode();
-		this.responseHeaders = foundStub.getResponseHeaders();
+		this.headers = foundStub.getResponseHeaders();
+		this.body = Optional.ofNullable(foundStub.getInputStream())
+				.orElse(IOUtils.toInputStream("", Charset.defaultCharset()));
 	}
 
-	private StubResponse() {
-		ResponseBody responseBody = new ResponseBody("Stub not found", SC_NOT_FOUND);
-		String message = gson.toJson(responseBody);
-		this.inputStream = IOUtils.toInputStream(message, Charset.defaultCharset());
-		this.statusCode = SC_NOT_FOUND;
-	}
-
-	private StubResponse(Exception exception, int status) {
-		ResponseBody responseBody = new ResponseBody(exception.getMessage(), SC_BAD_REQUEST);
-		String message = gson.toJson(responseBody);
-		this.inputStream = IOUtils.toInputStream(message, Charset.defaultCharset());
+	private StubResponse(int status, String errorMessage) {
 		this.statusCode = status;
+		ErrorResponseBody errorBody = new ErrorResponseBody(status, errorMessage);
+		this.body = IOUtils.toInputStream(gson.toJson(errorBody), Charset.defaultCharset());
 	}
 
-	public InputStream getInputStream() {
-		return inputStream;
+	public InputStream getBody() {
+		return body;
 	}
 
 	public int getStatusCode() {
 		return statusCode;
 	}
 
-	public Map<String, String> getResponseHeaders() { return responseHeaders; }
+	public Optional<Map<String, String>> getHeaders() {
+		return Optional.ofNullable(headers);
+	}
 
 }

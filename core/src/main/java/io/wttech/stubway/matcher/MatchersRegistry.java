@@ -22,11 +22,11 @@ public class MatchersRegistry {
 	public void activate() {
 		matchers.put(HttpMethod.GET, new DefaultMatcher(QueryParametersCollector.create()));
 		matchers.put(HttpMethod.POST, new DefaultMatcher(RequestBodyCollector.create(),
-														 QueryParametersCollector.create()));
+				QueryParametersCollector.create()));
 		matchers.put(HttpMethod.PUT, new DefaultMatcher(RequestBodyCollector.create(),
-														 QueryParametersCollector.create()));
+				QueryParametersCollector.create()));
 		matchers.put(HttpMethod.DELETE, new DefaultMatcher(RequestBodyCollector.create(),
-														 QueryParametersCollector.create()));
+				QueryParametersCollector.create()));
 	}
 
 }
